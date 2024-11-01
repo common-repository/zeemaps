@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Insert a ZeeMap</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script language="javascript" type="text/javascript">
+	function closeWindow() {
+		parent.tinymce.activeEditor.windowManager.close();
+	}
+	function $(x) {
+		return document.getElementById(x);
+	}
+
+	function insertcode() {
+		var code = "[zeemaps ";
+		var mapid = $('zeemapsnumber').value;
+		if (mapid) {
+			code += mapid + " ";
+			code += "w=" + $('zeemapsWidth').value + " ";
+			code += "h=" + $('zeemapsHeight').value + " ";
+			var zeemapsoptions = ["search", "legend", "geosearch", "list", "legend", 
+				"shuttered", "add", "locate", "simpleadd", "topbar"
+			];
+			for (var o = 0; o < zeemapsoptions.length; o++) {
+				if ($("zeemaps" + zeemapsoptions[o]).checked)
+					code += " " + zeemapsoptions[o] + " ";
+			}
+			code += "]";
+			parent.tinymce.activeEditor.execCommand('mceInsertContent', false, code);
+			parent.tinymce.activeEditor.execCommand('mceRepaint');
+			closeWindow();
+		} else {
+			alert("Please specify a map number");
+		}
+		return true;
+	 }
+	</script>
+</head>
+<body id="link"> 
+	<form name="zeemaps" action="#">
+		<table border="0" cellpadding="4" cellspacing="0">
+         <tr>
+            <td nowrap="nowrap"><label for="zeemapsnumber">Map number</label>
+             <input type="text" id="zeemapsnumber" name="zeemapsnumber"
+				style="width:50px"/>
+            </td>
+            <td nowrap="nowrap"><label for="zeemapsWidth">Width</label>
+             <input type="text" id="zeemapsWidth" name="zeemapsWidth"
+				style="width:35px" value="100%"/>
+			</td>
+            <td nowrap="nowrap"><label for="zeemapsHeight">Height</label>
+             <input type="text" id="zeemapsHeight" name="zeemapsHeight"
+				style="width:35px" value="500"/>
+            </td>
+          </tr>
+         <tr>
+		    <td nowrap="nowrap">
+             <input type="checkbox" id="zeemapsgeosearch" name="zeemapsgeosearch"/>
+			 <label for="zeemapsgeosearch">GeoSearch</label>
+            </td>
+            <td nowrap="nowrap">
+             <input type="checkbox" id="zeemapssearch" name="zeemapssearch"/>
+			 <label for="zeemapssearch">Search</label>
+            </td>
+		    <td nowrap="nowrap">
+             <input type="checkbox" id="zeemapslegend" name="zeemapslegend"/>
+			 <label for="zeemapslegend">Legend</label>
+            </td>
+		 </tr>
+         <tr>
+            <td nowrap="nowrap">
+             <input type="checkbox" id="zeemapslist" name="zeemapslist"/>
+			 <label for="zeemapslist">List</label>
+            </td>
+		    <td colspan="2" nowrap="nowrap">
+             <input type="checkbox" id="zeemapsshuttered" name="zeemapsshuttered"/>
+			 <label for="zeemapsshuttered">List initially closed</label>
+            </td>
+          </tr>
+         <tr>
+            <td nowrap="nowrap">
+             <input type="radio" id="zeemapssimpleadd" name="zeemapsadd"/>
+			 <label for="zeemapssimpleadd">Simple Add</label>
+			</td>
+			<td>
+             <input type="radio" id="zeemapsadd" name="zeemapsadd"/>
+			 <label for="zeemapsadd">Add</label>
+            </td>
+		    <td nowrap="nowrap">
+			 &nbsp;
+            </td>
+		  </tr>
+		  <tr>
+		    <td colspan="2" nowrap="nowrap">
+             <input type="checkbox" id="zeemapstopbar" name="zeemapstopbar"/>
+			 <label for="zeemapstopbar">Status bar on top</label>
+            </td>
+		    <td nowrap="nowrap">
+             <input type="checkbox" id="zeemapslocate" name="zeemapslocate"/>
+			 <label for="zeemapslocate">Locate</label>
+            </td>
+		    <td nowrap="nowrap">
+			 &nbsp;
+            </td>
+		  </tr>
+        </table>
+	<div style="text-align:center;">
+	 <input type="button" id="cancel" name="cancel" value="Cancel"
+		onclick="closeWindow();" />
+	 <input type="button" id="insert" name="insert" value="Insert" 
+		onclick="insertcode();" />
+	</div>
+</form>
+</body>
+</html>
